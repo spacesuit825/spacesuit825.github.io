@@ -1,4 +1,8 @@
 # spacesuit825.github.io
-Personal website
 
-A place to display my personal projects.
+### A place to display my personal projects.   
+
+| Syntax | Description |
+| ----------- | ----------- |
+| Header | Title |
+| Paragraph | Text |
