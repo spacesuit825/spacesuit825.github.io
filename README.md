@@ -3,5 +3,5 @@
 
 | Projects |
 | ----------- |
-| ### AURORA Physics Engine | 
-| ### HERMES Electric Scooter |
+| AURORA Physics Engine | 
+| HERMES Electric Scooter |
