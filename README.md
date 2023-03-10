@@ -1,5 +1,4 @@
-# Lachlan Jensen
-### A place to display my personal projects.   
+# Projects
 
 | Projects |
 | ----------- |
