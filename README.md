@@ -1,5 +1,4 @@
-# spacesuit825.github.io
-
+# Lachlan Jensen
 ### A place to display my personal projects.   
 
 | Syntax | Description |
