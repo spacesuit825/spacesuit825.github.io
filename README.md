@@ -1,7 +1,7 @@
 # Lachlan Jensen
 ### A place to display my personal projects.   
 
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
+| Projects |
+| ----------- |
+| ### AURORA Physics Engine | 
+| ### HERMES Electric Scooter |
