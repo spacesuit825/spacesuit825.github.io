@@ -16,12 +16,14 @@ AMD ROCm HIP support.
 stardust-dem only supports single and multi-spheres at this time. Support for \
 arbitrary polyhedra is planned.
 
-stardust is a capable DEM solver with a lot of the features expected in industry-grade \
-solvers. Features implemented by commerical solvers that are not yet supported likely will be.
+stardust is a capable DEM solver with a lot of the features that are expected in industry-grade \
+solvers. Features implemented by commerical solvers that are not yet supported likely will be \
+in the future.
 
-Some of the features stardust-dem supports:
+Some of the features stardust-dem supports currently:
 * Simulation of single and multi-sphere granular particles of arbitrary complexity/size distribution
 * Generation of particles into complex (mesh-based) containers
+* Arbitrary kinematic geometries (via triangle meshes)
 * Complex prescribed mesh motions via motion chaining
 * Simulation of conveyors via surface motions
 * Stopping and starting simulations via checkpoints
@@ -54,7 +56,7 @@ system. The builtin models currently supported are:
 
 
 In terms of solving and simulation, stardust is stable. The results that it produces are validated \
-against existing experimental datasets (see Validation). 
+against existing experimental datasets (see Validation) provided the simulation is correctly configured. 
 
 The GUI and the internals of the engine are still heavily in beta. Expect performance, feature \
 and quality-of-life improvements.
