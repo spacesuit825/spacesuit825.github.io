@@ -1,4 +1,7 @@
 site_name: stardust-public
 site_url: https://spacesuit825.github.io
-theme:
-  name: material
+theme: readthedocs
+
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
