@@ -101,13 +101,13 @@ If a wildcard API macro is present in your code and is unguarded, the wildcard w
 
 Internally, the wildcards are addressed via an element_index and a wildcard_index. The element is the particle or contact index or similar. The wildcard_index is the index of the wildcard within that particular elements sub-array, i.e., if you declare "tangential_displacement" and then "rolling_torque", the wildcard "tangential_displacement" has a wildcard_index of 0 and "rolling_torque" has an index of 1.
 
-As the engine may declare its own wildcards for builtin models or other purposes, the user should refrain from attempting to rely on bare indexing into the wildcard system. stardust will automatically the required indexes at runtime. To address the wildcard of interest, such as the one from the previous example "tangential_displacement", the user should use the following tag:
+As the engine may declare its own wildcards for builtin models or other purposes, the user should refrain from attempting to rely on bare indexing into the wildcard system. stardust will automatically generate the required indices at runtime. To address the wildcard of interest, such as the one from the previous example "tangential_displacement", the user should use the following tag:
 
     WC_CONTACT_tangential_displacement
 
-This pattern is the same for other wildcard categories, but of course, for a particle wildcard you should swap out `CONTACT` for `PARTICLE` and so on.
+This pattern is the same for other wildcard categories, but of course, for a particle wildcard you should swap out `CONTACT` for `PARTICLE` and so on. Note that the tag is sensitive to the case the wildcard was declared in.
 
-stardust will not provide the raw array address for the wildcards. Access is provided by the appropriate API wrapper struct. For example, access to the contact wildcard we declared earlier is achieved like so:
+stardust will not provide the raw array address for the wildcards. Access is achieved by the appropriate API wrapper struct. For example, access to the contact wildcard we declared earlier is achieved like so:
 
     ComplexType wildcard = contact_data.getWildcard<ComplexType>(WC_CONTACT_tangential_displacement);
 
