@@ -1,4 +1,4 @@
-# stardust-dem
+# stardust-dem v0.5.4
 
 ## About stardust-dem
 
