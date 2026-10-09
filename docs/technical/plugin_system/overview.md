@@ -6,7 +6,7 @@ stardust-dem enables the user to execute custom code at specified points within 
 points are called "hooks". 
 
 stardust does not require an installation of a compiler or any SDK. stardust uses runtime compilation
-to generate the required source code at execution time. stardust makes available for the API
+to generate the required source code at execution time. stardust makes available the API
 headers, however, these are not required for compilation and are instead provided only for Intellisense or IDE support.
 
 ## Hooks
@@ -56,6 +56,8 @@ stardust hook declarations are macros which carry some additional information us
 
     }
 
+Please refer to the documentation for the specific hook you are implementing for more information.
+
 ## Wildcard System
 
 To enable custom user data to persist between timesteps, stardust-dem provides a data storage 
@@ -72,8 +74,8 @@ The following wildcard categories exist in stardust-dem:
 * Material Interaction wildcards (size: n_material_interactions)
 * Simulation wildcards (size: 1)
 
-Unlike other solvers, stardust allows any type to be stored inside of a wildcard and allows an arbitrary number of
-wildcards per reference (particle, geometry, etc.). Within stardust, these arrays are treated as opaque and are 
+Unlike other solvers, stardust allows data of any type to be stored inside of a wildcard and allows an arbitrary number of
+wildcards per reference object (particle, geometry, etc.). Within stardust, these arrays are treated as opaque and are 
 not modified in any way by the engine, besides occasional reordering.
 
 Wildcards can be declared in the solver file (with a restriction to only primitive types) or the plugin source file itself. Within the source file wildcards are declared via the following API macros: 
@@ -99,7 +101,7 @@ Note that the API macros behave as regular macros in the code and therefore can 
 
 If a wildcard API macro is present in your code and is unguarded, the wildcard will be declared and allocated!
 
-Internally, the wildcards are addressed via an element_index and a wildcard_index. The element is the particle or contact index or similar. The wildcard_index is the index of the wildcard within that particular elements sub-array, i.e., if you declare "tangential_displacement" and then "rolling_torque", the wildcard "tangential_displacement" has a wildcard_index of 0 and "rolling_torque" has an index of 1.
+Internally, the wildcards are addressed via an element_index and a wildcard_index. The element is the particle or contact index or similar. The wildcard_index is the index of the wildcard within that particular element's sub-array, i.e., if you declare "tangential_displacement" and then "rolling_torque", the wildcard "tangential_displacement" has a wildcard_index of 0 and "rolling_torque" has an index of 1.
 
 As the engine may declare its own wildcards for builtin models or other purposes, the user should refrain from attempting to rely on bare indexing into the wildcard system. stardust will automatically generate the required indices at runtime. To address the wildcard of interest, such as the one from the previous example "tangential_displacement", the user should use the following tag:
 
