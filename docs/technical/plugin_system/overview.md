@@ -6,35 +6,55 @@ stardust-dem enables the user to execute custom code at specified points within 
 points are called "hooks". 
 
 stardust does not require an installation of a compiler or any SDK. stardust uses runtime compilation
-to generate the required source code at execution time.
+to generate the required source code at execution time. stardust makes available for the API
+headers, however, these are not required for compilation and are instead provided only for Intellisense or IDE support.
 
 ## Hooks
 
 stardust-dem makes the following hooks available:
 
 * At simulation initialisation:
- * STARDUST_PLUGIN_INITIALISE_SIMULATION
- * STARDUST_PLUGIN_INITIALISE_GEOMETRIES
- * STARDUST_PLUGIN_INITIALISE_TRIANGLES
- * STARDUST_PLUGIN_INITIALISE_MATERIALS
- * STARDUST_PLUGIN_INITIALISE_MATERIAL_INTERACTIONS
- * STARDUST_PLUGIN_COMPUTE_TIMESTEP
+  * STARDUST_PLUGIN_INITIALISE_SIMULATION
+  * STARDUST_PLUGIN_INITIALISE_GEOMETRIES
+  * STARDUST_PLUGIN_INITIALISE_TRIANGLES
+  * STARDUST_PLUGIN_INITIALISE_MATERIALS
+  * STARDUST_PLUGIN_INITIALISE_MATERIAL_INTERACTIONS
+  * STARDUST_PLUGIN_COMPUTE_TIMESTEP
 
 * During the simulation loop:
- * STARDUST_PLUGIN_BEGIN_ITERATION
- * STARDUST_PLUGIN_INITIALISE_PARTICLES (executed on every newly generated particle)
- * STARDUST_PLUGIN_INTEGRATE_GEOMETRIES
- * STARDUST_PLUGIN_BEFORE_CONTACT_FORCE
- * STARDUST_PLUGIN_NORMAL_FORCE_RESPONSE
- * STARDUST_PLUGIN_ADHESIVE_FORCE_RESPONSE
- * STARDUST_PLUGIN_TANGENTIAL_FORCE_RESPONSE
- * STARDUST_PLUGIN_ROLLING_TORQUE_RESPONSE
- * STARDUST_PLUGIN_IMPACT_ENERGY_RESPONSE
- * STARDUST_PLUGIN_AFTER_CONTACT_FORCE
- * STARDUST_PLUGIN_EXTERNAL_FORCE
- * STARDUST_PLUGIN_BEFORE_PARTICLE_INTEGRATION
- * STARDUST_PLUGIN_AFTER_PARTICLE_INTEGRATION
- * STARDUST_PLUGIN_END_ITERATION
+  * STARDUST_PLUGIN_BEGIN_ITERATION
+  * STARDUST_PLUGIN_INITIALISE_PARTICLES (executed on every newly generated particle)
+  * STARDUST_PLUGIN_INTEGRATE_GEOMETRIES
+  * STARDUST_PLUGIN_BEFORE_CONTACT_FORCE
+  * STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE
+  * STARDUST_PLUGIN_ADHESIVE_FORCE_CONTACT_RESPONSE
+  * STARDUST_PLUGIN_TANGENTIAL_FORCE_CONTACT_RESPONSE
+  * STARDUST_PLUGIN_ROLLING_TORQUE_CONTACT_RESPONSE
+  * STARDUST_PLUGIN_IMPACT_ENERGY_CONTACT_RESPONSE
+  * STARDUST_PLUGIN_AFTER_CONTACT_FORCE
+  * STARDUST_PLUGIN_EXTERNAL_FORCE
+  * STARDUST_PLUGIN_BEFORE_PARTICLE_INTEGRATION
+  * STARDUST_PLUGIN_AFTER_PARTICLE_INTEGRATION
+  * STARDUST_PLUGIN_END_ITERATION
+
+The hooks along with all plugin API declarations are provided in "api_common.hpp". 
+
+## Implementing a hook
+
+stardust hook declarations are macros which carry some additional information used by the engine. To implement a hook, the user should write as it the hook declaration is a function definition. Every hook takes the same arguments, which are all API wrapper structs. For example, to implement `STARDUST_PLUGIN_NORMAL_FORCE` the following defintion is required:
+
+    STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE(
+        api_v1::SimulationData& simulation,
+        api_v1::DiscreteElement& element_1,
+        api_v1::DiscreteElement& element_2,
+        api_v1::ContactMaterialInteraction& interaction,
+        api_v1::ContactData& contact_data,
+        api_v1::ContactResponse& response
+    ) {
+
+        ... some implementation ...
+
+    }
 
 ## Wildcard System
 
@@ -85,7 +105,7 @@ As the engine may declare its own wildcards for builtin models or other purposes
 
     WC_CONTACT_tangential_displacement
 
-Likewise, for a particle wildcard you should swap out `CONTACT` for `PARTICLE`.
+This pattern is the same for other wildcard categories, but of course, for a particle wildcard you should swap out `CONTACT` for `PARTICLE` and so on.
 
 stardust will not provide the raw array address for the wildcards. Access is provided by the appropriate API wrapper struct. For example, access to the contact wildcard we declared earlier is achieved like so:
 
