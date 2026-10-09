@@ -86,7 +86,7 @@ Wildcards can be declared in the solver file (with a restriction to only primiti
     STARDUST_REQUIRES_MATERIAL_INTERACTION_WILDCARD(wildcard_name)
     STARDUST_REQUIRES_SIMULATION_WILDCARD(wildcard_name)
 
-A wildcard declaration for a contact wildcard might called "tangential_displacement" looks like this in the source file:
+A wildcard declaration for a contact wildcard called "tangential_displacement" looks like this in the source file:
 
     struct ComplexType {
         float3 displacement;
