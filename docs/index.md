@@ -1,19 +1,17 @@
-# Welcome to MkDocs
+# stardust-dem
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## About stardust-dem
 
-## Commands
+    stardust-dem is free to use but closed source. It is a passion project of many years, etc, etc.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+* Matches or beats comparable open-source and commerical DEM solvers for common usecases
+* Executable on Windows and Linux 
+* Supports single and double precision
 
-## Project layout
+## Project Philosophy
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    blah blah blah
 
-    Check
+## Use Cases 
+
+    everything
