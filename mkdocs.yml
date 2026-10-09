@@ -4,4 +4,44 @@ theme: readthedocs
 
 nav:
   - Home: index.md
-  - Getting Started: getting_started.md
+
+  - User Guide:
+    - Overview: user_guide/overview.md
+    - Installation: user_guide/installation.md
+    - Setting Up Simulations: user_guide/setting_up_simulations.md
+    - Running Simulations: user_guide/running_simulations.md
+    - Post-Processing: user_guide/post_processing.md
+    - Troubleshooting: user_guide/troubleshooting.md
+
+  - Technical:
+    - Overview: technical/overview.md
+    - Architecture: technical/architecture.md
+
+    - Contact Models: 
+      - Overview: technical/contact_models/overview.md
+      - Hertz-Mindlin No-Slip: technical/contact_models/hertz_mindlin_no_slip.md
+
+    - Contact Detection: technical/contact_detection.md
+    - Motion Integration: technical/integration.md
+
+    - Geometries:
+      - Overview: technical/geometries/overview.md
+      - Motions: technical/geometries/motions.md
+      - Generators: technical/geometries/generators.md
+      - Regions: technical/geometries/regions.md
+
+    - Plugin System:
+      - Overview: technical/plugin_system/overview.md
+      - Examples: technical/plugin_system/examples.md
+
+    - Periodic Boundary Conditions: technical/periodic_boundary_conditions.md
+    - Performance Considerations: technical/performance_considerations.md
+    - Timestepping: technical/timestepping.md
+
+  - Validation:
+    - Overview: validation/overview.md
+    - Test Cases: validation/test_cases.md
+
+  - License: license.md
+      
+     
