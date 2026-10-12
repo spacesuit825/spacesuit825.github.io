@@ -41,7 +41,7 @@ The hooks along with all plugin API declarations are provided in "api_common.hpp
 
 ## Implementing a hook
 
-stardust hook declarations are macros which carry some additional information used by the engine. To implement a hook, the user should write as it the hook declaration is a function definition. Every hook takes the same arguments, which are all API wrapper structs. For example, to implement `STARDUST_PLUGIN_NORMAL_FORCE` the following defintion is required:
+stardust hook declarations are macros which carry some additional information used by the engine. To implement a hook, the user should write as it the hook declaration is a function definition. Every hook takes the same arguments, which are all API wrapper structs. For example, to implement `STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE` the following defintion is required:
 
     STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE(
         api_v1::SimulationData& simulation,
@@ -58,11 +58,11 @@ stardust hook declarations are macros which carry some additional information us
 
 Please refer to the documentation for the specific hook you are implementing for more information.
 
-## Wildcard System
+## Wildcards and Parameters
 
-To enable custom user data to persist between timesteps, stardust-dem provides a data storage 
-system called wildcards. A wildcard is an arbitrary piece of data that can store some information 
-and is automatically tracked and persisted by the solver.
+### Wildcards
+
+To enable custom user data to persist between timesteps, stardust-dem provides a wildcards as a data storage system. A wildcard is an arbitrary piece of data that can store some information and is automatically tracked by the solver through reordering, contact changes, etc.
 
 The following wildcard categories exist in stardust-dem:
 
@@ -78,7 +78,11 @@ Unlike other solvers, stardust allows data of any type to be stored inside of a 
 wildcards per reference object (particle, geometry, etc.). Within stardust, these arrays are treated as opaque and are 
 not modified in any way by the engine, besides occasional reordering.
 
-Wildcards can be declared in the solver file (with a restriction to only primitive types) or the plugin source file itself. Within the source file wildcards are declared via the following API macros: 
+In stardust, all wildcard bytes are initialised to zero! It is YOUR responsibility to initialise default values in initialisation hooks or if a contact is new, etc.
+
+All stardust owned data is non-dimensionalised to improve floating point behaviour as per the Architecture section. Wildcard arrays are not, and can not, be non-dimensionalised by the engine! At API boundaries, stardust will automatically convert from its internal unit system to the one you declare in the solver file. It is YOUR responsibility to ensure your wildcard units align with the unit system you set in the solver file.
+
+Wildcards can be declared in the solver file (with a restriction to only primitive types) or the plugin source file itself (enabling any type to be used). Within the source file wildcards are declared via the following API macros: 
 
     STARDUST_REQUIRES_PARTICLE_WILDCARD(wildcard_name)
     STARDUST_REQUIRES_GEOMETRY_WILDCARD(wildcard_name)
@@ -99,7 +103,9 @@ A wildcard declaration for a contact wildcard called "tangential_displacement" l
 
 Note that the API macros behave as regular macros in the code and therefore can be disabled via `#ifdef 0` or similar. 
 
-If a wildcard API macro is present in your code and is unguarded, the wildcard will be declared and allocated!
+If a wildcard API macro is used in your code and is unguarded, the wildcard will be declared and allocated! 
+
+The more wildcards you declare the more memory will be used by stardust. Where possible you should try to minimise wildcard sizes!
 
 Internally, the wildcards are addressed via an element_index and a wildcard_index. The element is the particle or contact index or similar. The wildcard_index is the index of the wildcard within that particular element's sub-array, i.e., if you declare "tangential_displacement" and then "rolling_torque", the wildcard "tangential_displacement" has a wildcard_index of 0 and "rolling_torque" has an index of 1.
 
@@ -113,6 +119,10 @@ stardust will not provide the raw array address for the wildcards. Access is ach
 
     ComplexType wildcard = contact_data.getWildcard<ComplexType>(WC_CONTACT_tangential_displacement);
 
+
+### Parameters
+
+Whilst wildcards provide zero-initialised buffers as scratch space or persisted storage for the user, parameters facilitate refreshable data injection into the plugin at runtime. 
 
 
 
