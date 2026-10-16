@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://spacesuit825.github.io/technical/plugin_system/overview/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Overview - stardust-public</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "technical/plugin_system/overview.md";
+        var mkdocs_page_url = "/technical/plugin_system/overview/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> stardust-public
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_guide/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_guide/installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_guide/setting_up_simulations/">Setting Up Simulations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_guide/running_simulations/">Running Simulations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_guide/post_processing/">Post-Processing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../../user_guide/troubleshooting.md">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Technical</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Contact Models</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../contact_models/overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../contact_models/hertz_mindlin_no_slip/">Hertz-Mindlin No-Slip</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../contact_detection/">Contact Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../integration/">Motion Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Geometries</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../geometries/overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../geometries/motions/">Motions</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../geometries/generators/">Generators</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../geometries/regions/">Regions</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Plugin System</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Overview</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#important-guidelines">Important Guidelines</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hooks">Hooks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#implementing-a-hook">Implementing a hook</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#plugin-datatypes">Plugin Datatypes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#wildcards-and-parameters">Wildcards and Parameters</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#wildcards">Wildcards</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#performance-considerations">Performance Considerations</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../examples/">Examples</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../periodic_boundary_conditions/">Periodic Boundary Conditions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../performance_considerations/">Performance Considerations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../timestepping/">Timestepping</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Validation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../validation/overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../validation/test_cases/">Test Cases</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../license/">License</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">stardust-public</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Technical</li>
+          <li class="breadcrumb-item">Plugin System</li>
+      <li class="breadcrumb-item active">Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="plugin-system">Plugin System</h1>
+<h2 id="overview">Overview</h2>
+<p>I understand stardust will likely never achieve the inbuilt feature set large commerical solvers naturally have, simply due to the scale and man-hours required. The plugin system built into stardust is my answer to this.</p>
+<p>stardust includes a very powerful plugin system which enables a user to customise the behaviour of the engine. The plugin system makes minimal assumptions about the user requirements and have been designed to be a general as possible. Implementation of nearly all commerical DEM program additional features, such as:</p>
+<ul>
+<li>Coupling (fluids and rigid bodies)</li>
+<li>Custom contact models</li>
+<li>Wear models</li>
+<li>Bonding models</li>
+<li>Temperature/heat transfer</li>
+<li>Moisture and evaporative models</li>
+<li>Time-based, position-based or event-based adaptive material/particle/triangle properties</li>
+<li>Particle property tagging/tracking</li>
+<li>Electrostatics</li>
+<li>Coatings/sprays</li>
+<li>Buoyancy/drag/lift models</li>
+</ul>
+<p>are possible via the plugin system. As stardust develops the plugin system will be extended to cover more potential use cases.</p>
+<p>The plugin system does not require the installation of a compiler or SDK. stardust makes available the API
+headers, however, these are provided for Intellisense and IDE support, and not required for compilation.</p>
+<p>All stardust builtins are implemented inside of the plugin system.</p>
+<p>All stardust owned data is non-dimensionalised to improve floating point behaviour as per the Architecture section. At API boundaries, stardust will automatically convert from its internal unit system to the one you declare in the solver file and vice versa. Your plugin should be written under the unit system you declared in the solver file.</p>
+<h2 id="important-guidelines">Important Guidelines</h2>
+<p>A few important things to note before writing any plugin code:</p>
+<ul>
+<li>Any variable, function, namespace, class or struct with the word <code>stardust</code> or <code>STARDUST</code> is reserved for internal use. Use of reserved words in any of your names may result in undefined and unpredictable behaviour!</li>
+</ul>
+<h2 id="hooks">Hooks</h2>
+<p>stardust-dem makes the following hooks available:</p>
+<ul>
+<li>At simulation initialisation:</li>
+<li>STARDUST_PLUGIN_INITIALISE_SIMULATION</li>
+<li>STARDUST_PLUGIN_INITIALISE_GEOMETRIES</li>
+<li>STARDUST_PLUGIN_INITIALISE_TRIANGLES</li>
+<li>STARDUST_PLUGIN_INITIALISE_MATERIALS</li>
+<li>STARDUST_PLUGIN_INITIALISE_MATERIAL_INTERACTIONS</li>
+<li>
+<p>STARDUST_PLUGIN_COMPUTE_TIMESTEP</p>
+</li>
+<li>
+<p>During the simulation loop:</p>
+</li>
+<li>STARDUST_PLUGIN_BEGIN_ITERATION</li>
+<li>STARDUST_PLUGIN_INITIALISE_PARTICLES (executed on every newly generated particle)</li>
+<li>STARDUST_PLUGIN_INTEGRATE_GEOMETRIES</li>
+<li>STARDUST_PLUGIN_BEFORE_CONTACT_FORCE</li>
+<li>STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE</li>
+<li>STARDUST_PLUGIN_ADHESIVE_FORCE_CONTACT_RESPONSE</li>
+<li>STARDUST_PLUGIN_TANGENTIAL_FORCE_CONTACT_RESPONSE</li>
+<li>STARDUST_PLUGIN_ROLLING_TORQUE_CONTACT_RESPONSE</li>
+<li>STARDUST_PLUGIN_IMPACT_ENERGY_CONTACT_RESPONSE</li>
+<li>STARDUST_PLUGIN_AFTER_CONTACT_FORCE</li>
+<li>STARDUST_PLUGIN_EXTERNAL_FORCE</li>
+<li>STARDUST_PLUGIN_BEFORE_PARTICLE_INTEGRATION</li>
+<li>STARDUST_PLUGIN_AFTER_PARTICLE_INTEGRATION</li>
+<li>STARDUST_PLUGIN_END_ITERATION</li>
+</ul>
+<p>The hooks along with all plugin API declarations are provided in "api_common.hpp". </p>
+<h2 id="implementing-a-hook">Implementing a hook</h2>
+<p>stardust hook declarations are macros which carry some additional information used by the engine. To implement a hook, the user should write the hook declaration as if it were a function definition. Every hook takes similar arguments, which are all API wrapper structs. You should refer to the documentation of the specific hook you are implementing to understand its requirements.</p>
+<p>For example, to implement <code>STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE</code> the following defintion is required:</p>
+<pre><code>STARDUST_PLUGIN_NORMAL_FORCE_CONTACT_RESPONSE(
+    api_v1::SimulationData&amp; simulation,
+    api_v1::DiscreteElement&amp; element_1,
+    api_v1::DiscreteElement&amp; element_2,
+    api_v1::ContactMaterialInteraction&amp; interaction,
+    api_v1::ContactData&amp; contact_data,
+    api_v1::ContactResponse&amp; response
+) {
+
+    ... some implementation ...
+
+}
+</code></pre>
+<h2 id="plugin-datatypes">Plugin Datatypes</h2>
+<p>Plugins do ntp</p>
+<h2 id="wildcards-and-parameters">Wildcards and Parameters</h2>
+<p>Wildcards and Parameters form the backbone of the stardust plugin system and are what make it so versatile. In short:</p>
+<ul>
+<li>Wildcards provide persistent, stateful data storage in the plugin</li>
+<li>Parameters provide data input into the plugin from the host</li>
+</ul>
+<h3 id="wildcards">Wildcards</h3>
+<p>A wildcard is a reserved slot for some custom user data. The following wildcard categories exist in stardust-dem:</p>
+<ul>
+<li>Particle wildcards (size: n_particles)</li>
+<li>Particle template wildcards (size: n_templates)</li>
+<li>Geometry wildcards (size: n_geometries)</li>
+<li>Triangle wildcards (size: n_triangles_in_simulation)</li>
+<li>Contact wildcards (size: n_contacts)</li>
+<li>Material wildcards (size: n_materials)</li>
+<li>Material Interaction wildcards (size: n_material_interactions)</li>
+<li>Simulation wildcards (size: 1)</li>
+</ul>
+<p>Unlike other solvers, stardust allows data of any type to be stored inside of a wildcard and allows an arbitrary number (0 or greater) of wildcards per reference object (particle, geometry, etc.). Within stardust, each wildcard is treated as opaque and is not modified in any way by the engine, besides the occasional reordering of its contiguous memory block within the wildcard array for performance reasons.</p>
+<p>In stardust, all wildcard bytes are initialised to zero at creation! It is YOUR responsibility to initialise default values in initialisation hooks or if a contact is new, etc.</p>
+<p>Wildcard arrays are not, and can not, be non-dimensionalised by the engine due to their opaque nature! It is YOUR responsibility to ensure your wildcard units align with the unit system you set in the solver file.</p>
+<p>Wildcards can be declared in the solver file (with a restriction to only primitive types) or the plugin source file itself (enabling any type to be used). Within the source file wildcards are declared via the following API macro: </p>
+<pre><code>STARDUST_REQUIRES_WILDCARD(wildcard_name, type, category)
+</code></pre>
+<p>To declare any of the categories shown above:</p>
+<pre><code>STARDUST_REQUIRES_WILDCARD(wildcard_name, type, particle)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, particle_template)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, geometry)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, triangle)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, contact)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, material)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, material_interaction)
+STARDUST_REQUIRES_WILDCARD(wildcard_name, type, simulation)
+</code></pre>
+<p>A wildcard declaration for a contact wildcard called "tangential_displacement" looks like this in the source file:</p>
+<pre><code>struct ComplexType {
+    float3 displacement;
+    double time_in_contact;
+};
+
+STARDUST_REQUIRES_WILDCARD(tangential_displacement, ComplexType, contact)
+</code></pre>
+<p>Note that the API macros behave as regular macros in the code and therefore can be disabled via <code>#ifdef 0</code> or similar. </p>
+<p>If a wildcard API macro is used in your code and is unguarded, the wildcard will be declared and allocated! </p>
+<p>The more wildcards you declare the more memory will be used by stardust. Where possible you should try to minimise wildcard sizes and quantities!</p>
+<p>Internally, the wildcards are addressed via an element_index and a wildcard_index. The element is the particle or contact index or similar. The wildcard_index is the index of the wildcard within that particular element's sub-array, i.e., if you declare "tangential_displacement" and then "rolling_torque", the wildcard "tangential_displacement" has a wildcard_index of 0 and "rolling_torque" has a wildcard index of 1.</p>
+<p>As the engine may declare its own wildcards for builtin models or other purposes, the user should refrain from attempting to rely on bare indexing into the wildcard system. stardust will automatically generate the required indices at runtime. To address the wildcard of interest, such as the one from the previous example "tangential_displacement", the user should use the following tag:</p>
+<pre><code>stardust_wildcards::contact::tangential_displacement
+</code></pre>
+<p>This pattern is the same for other wildcard categories, but of course, for a particle wildcard you should swap out <code>contact</code> for <code>particle</code> and so on. Note that the tag is sensitive to the case the wildcard was declared in.</p>
+<p>Access is achieved by the appropriate API wrapper struct. For example, access to the contact wildcard we declared earlier is achieved like so:</p>
+<pre><code>ComplexType wildcard = contact_data.getWildcard(stardust_wildcards::contact::tangential_displacement);
+</code></pre>
+<p>stardust returns a reference to the wildcard object. You may operate on the wildcard like you would any other memory address.</p>
+<p>For example, when summing a wear volume per triangle in the custom contact model, you may need to allow many contacts to write to a single triangle. Attempting to sum naively would result in a race condition due to the parallel GPU execution model. In a case such as this, you can sum your quantity like so:</p>
+<pre><code>const double wear_volume = ... computed earlier ...
+atomicAdd(&amp;element_1.getWildcard(stardust_wildcards::triangle::wear_volume), wear_volume);
+</code></pre>
+<p>The user should consult the CUDA Programming Guide for further information about atomics and their use in parallel programming.</p>
+<p>As a general rule, whenever there is a many-to-one write for a wildcard, an appropriate atomic (atomicAdd, atomicMax, atomicMin, etc.) should be employed. Note that whenever atomics are used there will be a performance penalty incurred.</p>
+<h3 id="parameters">Parameters</h3>
+<p>Whilst wildcards provide zero-initialised buffers as persisted storage for the user, parameters facilitate refreshable data input into the plugin at runtime. </p>
+<p>Parameters should be declared similar to wildcards in the solver file or inside of the plugin itself. Within the plugin source code, a parameter can be requested with the following syntax:</p>
+<pre><code>STARDUST_REQUIRES_PARAMETER(parameter_name, type, optional: category)
+</code></pre>
+<p>Note that parameter types must be primitive (refer to Plugin Datatypes). Parameters may have the following categories which are a subset of the wildcard categories:</p>
+<ul>
+<li>Particle template</li>
+<li>Geometry</li>
+<li>Material</li>
+<li>Material Interaction</li>
+<li>Global/Simulation</li>
+</ul>
+<p>The category field is optional and excluding it will set the scope of the parameter as global. The category field informs the engine that this parameter must be declared per item of that category. For a global, this is once at the plugin level. For an example, to support JKR, stardust must receive an additional scalar value for the surface energy. Within the builtin file, the following code is declared:</p>
+<pre><code>STARDUST_REQUIRES_PARAMETER(jkr_surface_energy, real, material_interaction)
+</code></pre>
+<p>With this declaration, the engine will throw an error if a <code>{ "parameters": { "jkr_surface_energy": value } }</code> is not included for every material interaction block in the solver file. </p>
+<p>To access a parameter, you should use the following syntax:</p>
+<pre><code>const Type surface_energy = element_1.getParameter(stardust_parameter::jkr_surface_energy);
+</code></pre>
+<p>Parameters, unlike wildcards, are read-only on the device (from the plugin). They are useful for sending information into a plugin, however, if you need to have some property change based on some event occurring in the simulation, you are better served by copying the parameter into a wildcard at initialisation time. For example:</p>
+<pre><code>const Type evolving_property = element_1.getParameter(stardust_parameters::evolving_property);
+element_1.getWildcard(stardust_wildcards::material::evolving_property) = evolving_property;
+</code></pre>
+<p>Now the wildcard can be updated over the simulation duration, tracking the evolving property.</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p>As with anything, you pay for what you use. All calls to the wilcard/parameter system, API wrapper structs and atomics have some associated cost which will depend on the scale of your simulation amongst other things. </p>
+<p>Where you are experiencing major performance degradation, you should consult the CUDA Programming Guide.</p>
+<p>You should always try to minimise your use of wildcards and atomics. Where required, you should ensure wildcard and atomic payloads are as small as possible. </p>
+<p>When using custom datatypes in wildcards, the engine can not automatically guarantee alignment of memory. You should decorate your structs with <code>__align__(2, 4, 8, 16, etc.)</code> to enforce memory alignment as a hint to the compiler:</p>
+<pre><code>struct __align__(16) ComplexType {
+    float3 tangential_displacement;
+    double time_in_contact;
+}; // compiler knows to pack this struct to achieve correct alignment
+</code></pre>
+<p>Improved memory alignment will result in better access coalesence and thus better performance in principle.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../geometries/regions/" class="btn btn-neutral float-left" title="Regions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../examples/" class="btn btn-neutral float-right" title="Examples">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../geometries/regions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../examples/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
