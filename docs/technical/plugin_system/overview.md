@@ -5,6 +5,7 @@
 I understand stardust will likely never achieve the inbuilt feature set large commerical solvers naturally have, simply due to the scale and man-hours required. The plugin system built into stardust is my answer to this.
 
 stardust includes a very powerful plugin system which enables a user to customise the behaviour of the engine. The plugin system makes minimal assumptions about the user requirements and have been designed to be a general as possible. Implementation of nearly all commerical DEM program additional features, such as:
+
 * Coupling (fluids and rigid bodies)
 * Custom contact models
 * Wear models
@@ -91,6 +92,7 @@ Plugins do ntp
 ## Wildcards and Parameters
 
 Wildcards and Parameters form the backbone of the stardust plugin system and are what make it so versatile. In short:
+
 * Wildcards provide persistent, stateful data storage in the plugin
 * Parameters provide data input into the plugin from the host
 
